@@ -1,8 +1,9 @@
 import React from "react";
+import App from "../Components/App/app";
 
 function Home() {
-    return <div style={{ paddingTop: 50 }}>
-        todo: Home Page
+    return <div>
+        <App />
     </div>
 }
 
