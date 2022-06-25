@@ -6,3 +6,9 @@ export const Wrapper = styled.main`
     padding: 24px;
     grid-column-gap: 24px;
 `;
+
+export const SubContainer = styled.div`
+    flex-wrap: wrap;
+    font-weight: bold;
+    font-size: 24px;
+`;

@@ -13,6 +13,6 @@ export const Title = styled.header`
 
 export const TextTitle = styled.div`
     color: #FFFFFF;
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bold;
 `;

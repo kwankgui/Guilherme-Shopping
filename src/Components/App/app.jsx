@@ -7,17 +7,7 @@ function App() {
     return <Wrapper>
         <Container>
             <HeaderHome />
-            <InsideContainer
-                left={<div style={{backgroundColor: 'red'}}>
-                    Produtos Disponíveis
-                </div>}
-                middle={<div style={{backgroundColor: 'green'}}>
-                    Lista de Compras
-                </div>}
-                right={<div style={{backgroundColor: 'blue'}}>
-                    Estatísticas
-                </div>}
-            />
+            <InsideContainer />
         </Container>
     </Wrapper>
 }
