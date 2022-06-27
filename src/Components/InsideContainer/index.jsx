@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { SubContainer, Wrapper } from './styles'; 
+import { SubContainer, Wrapper, TotalPrice, TotalText } from './styles'; 
 import LineChart from "../../Shared/LineChart";
 import ShoppingList from "../ShoppingList";
 import productsMock from '../Mocks/Products.json'
+import extractPercentage from "../../Utils/extractPercentage";
 
 function InsideContainer() {
     const colors = ["#62CBC6","#00ABAD","#006073","#004D61"] 
     
     const [products, setProducts] = useState(productsMock.products)
     const [selectedProducts, setSelectedProducts] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0)
 
     function handleToggle(id) {
-        const newProduct = products.map(product => {return product.id === id ? { ...product, checked: !product.checked } : product})
+        const newProduct = products.map(product => product.id === id ? { ...product, checked: !product.checked } : product)
         setProducts(newProduct)
     }
 
@@ -21,14 +23,58 @@ function InsideContainer() {
         setSelectedProducts(newSelectedProducts)
     }, [products])
 
+    useEffect(() => {
+        const total = selectedProducts
+            .map(product => product.price)
+            .reduce((a,b) => a + b, 0)
+
+        setTotalPrice(total)
+    }, [selectedProducts])
+
     return <Wrapper>
         <SubContainer>{<ShoppingList products={products} title="Produtos disponíveis" onToggle={handleToggle} />}</SubContainer>
-        <SubContainer>{<ShoppingList products={selectedProducts} title="Sua lista de compra" onToggle={handleToggle} />}</SubContainer>
+        <SubContainer>{
+            <ShoppingList
+                products={selectedProducts}
+                title="Sua lista de compra"
+                onToggle={handleToggle}
+            />}
+        </SubContainer>
         <SubContainer>Estatísticas
-            <LineChart percentage={80} color={colors[0]} title="Saudável" />
-            <LineChart percentage={20} color={colors[1]} title="Morboso" />
-            <LineChart percentage={15} color={colors[2]} title="Limpeza" />
-            <LineChart percentage={60} color={colors[3]} title="Condimentos" />
+            <LineChart
+                color={colors[0]}
+                title="Saudável"
+                percentage={extractPercentage(selectedProducts.length, selectedProducts
+                    .filter(product => product.tags.includes("healthy"))
+                    .length
+                )}
+            />
+            <LineChart
+                color={colors[1]}
+                title="Morboso"
+                percentage={extractPercentage(selectedProducts.length, selectedProducts
+                .filter(product => product.tags.includes("junk"))
+                .length
+                )}
+            />
+            <LineChart
+                color={colors[2]}
+                title="Limpeza"
+                percentage={extractPercentage(selectedProducts.length, selectedProducts
+                .filter(product => product.tags.includes("cleaning"))
+                .length
+                )}
+            />
+            <LineChart
+                color={colors[3]}
+                title="Outros"
+                percentage={extractPercentage(selectedProducts.length, selectedProducts
+                .filter(product => product.tags.includes("others"))
+                .length
+                )}
+            />
+            <TotalText>Total Gasto:</TotalText>
+            <TotalPrice>{totalPrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</TotalPrice>
         </SubContainer>
     </Wrapper>
 }

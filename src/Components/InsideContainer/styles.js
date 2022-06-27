@@ -12,3 +12,12 @@ export const SubContainer = styled.div`
     font-weight: bold;
     font-size: 24px;
 `;
+
+export const TotalPrice = styled.div`
+    margin-top: 15px;
+    font-size: 30px;
+`;
+export const TotalText = styled.div`
+    margin-top: 180px;
+    font-size: 30px;
+`;
