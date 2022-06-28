@@ -5,6 +5,7 @@ export const Wrapper = styled.main`
     grid-template-columns: 1fr 1fr 1fr;
     padding: 24px;
     grid-column-gap: 24px;
+    height: "1vh";
 `;
 
 export const SubContainer = styled.div`

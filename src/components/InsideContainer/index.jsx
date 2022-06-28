@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { SubContainer, Wrapper, TotalPrice, TotalText } from './styles'; 
-import LineChart from "../../Shared/LineChart";
+import { SubContainer, Wrapper, TotalPrice, TotalText } from './styles';
+import LineChart from "../../shared/LineChart";
 import ShoppingList from "../ShoppingList";
-import productsMock from '../Mocks/Products.json'
-import extractPercentage from "../../Utils/extractPercentage";
+import productsMock from '../../mocks/Products.json'
+import extractPercentage from "../../utils/extractPercentage";
+import { useSelector } from "react-redux";
 
 function InsideContainer() {
-    const colors = ["#62CBC6","#00ABAD","#006073","#004D61"] 
-    
+    const colors = ["#62CBC6", "#00ABAD", "#006073", "#004D61"]
+
+    //const productsRedux = useSelector(state => state.product)
+
     const [products, setProducts] = useState(productsMock.products)
     const [selectedProducts, setSelectedProducts] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
 
     function handleToggle(id) {
-        const newProduct = products.map(product => product.id === id ? { ...product, checked: !product.checked } : product)
+        const newProduct = products
+            .map(product => product.id === id ? {
+                ...product, checked:
+                    !product.checked
+            }
+                : product)
         setProducts(newProduct)
     }
 
@@ -26,7 +34,7 @@ function InsideContainer() {
     useEffect(() => {
         const total = selectedProducts
             .map(product => product.price)
-            .reduce((a,b) => a + b, 0)
+            .reduce((a, b) => a + b, 0)
 
         setTotalPrice(total)
     }, [selectedProducts])
@@ -53,24 +61,24 @@ function InsideContainer() {
                 color={colors[1]}
                 title="Morboso"
                 percentage={extractPercentage(selectedProducts.length, selectedProducts
-                .filter(product => product.tags.includes("junk"))
-                .length
+                    .filter(product => product.tags.includes("junk"))
+                    .length
                 )}
             />
             <LineChart
                 color={colors[2]}
                 title="Limpeza"
                 percentage={extractPercentage(selectedProducts.length, selectedProducts
-                .filter(product => product.tags.includes("cleaning"))
-                .length
+                    .filter(product => product.tags.includes("cleaning"))
+                    .length
                 )}
             />
             <LineChart
                 color={colors[3]}
                 title="Outros"
                 percentage={extractPercentage(selectedProducts.length, selectedProducts
-                .filter(product => product.tags.includes("others"))
-                .length
+                    .filter(product => product.tags.includes("others"))
+                    .length
                 )}
             />
             <TotalText>Total Gasto:</TotalText>

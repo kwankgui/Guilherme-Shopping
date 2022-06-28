@@ -1,5 +1,5 @@
 import React from "react";
-import App from "../Components/App/app";
+import App from "../components/App/app";
 
 function Home() {
     return <div>

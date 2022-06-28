@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import wave from '../../Assets/wallpaper.svg'
+import wave from '../../assets/wallpaper.svg'
 
 export const Wrapper = styled.div`
     height: 100vh;

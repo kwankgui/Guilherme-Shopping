@@ -1,5 +1,5 @@
 import React from "react";
-import { ProgressBar, Wrapper } from "./styles";
+import { Percentage, ProgressBar, Wrapper } from "./styles";
 
 function LineChart({ title, percentage, color }) {
     return <Wrapper>
@@ -10,6 +10,9 @@ function LineChart({ title, percentage, color }) {
             percentage={percentage}
             color={color}
         />
+        <Percentage>
+            {percentage.toFixed(2).replace(".", ",")}%
+        </Percentage>
     </Wrapper>
 }
 
